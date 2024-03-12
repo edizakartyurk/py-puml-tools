@@ -12,40 +12,26 @@ Run the program with the PlantUML file as argument.
 
     $ ./dbpuml2sql.py db.puml 
     
-    CREATE TABLE productTable(
-        idProd INTEGER PRIMARY KEY,
-        product TEXT
-    );
-    CREATE TABLE countryTable(
-        idCountry INTEGER PRIMARY KEY,
-        country TEXT
-    );
-    CREATE TABLE cityTable(
-        idCity INTEGER PRIMARY KEY,
-        country TEXT,
-        FOREIGN KEY(country) REFERENCES countryTable(idCountry),
-        city TEXT
-    );
-    CREATE TABLE customerTable(
-        idCust INTEGER PRIMARY KEY,
-        city TEXT,
-        FOREIGN KEY(city) REFERENCES cityTable(idCity),
-        address TEXT,
-        email TEXT,
-        name TEXT
-    );
-    CREATE TABLE orderTable(
-        idOrder INTEGER PRIMARY KEY,
-        custId INTEGER,
-        FOREIGN KEY(custId) REFERENCES customerTable(idCust),
-        date DATE
-    );
-    CREATE TABLE orderProductTable(
-        orderId INTEGER,
-        FOREIGN KEY(orderId) REFERENCES orderTable(idOrder),
-        productId INTEGER,
-        FOREIGN KEY(productId) REFERENCES productTable(idProd)
-    ); 
+    CREATE TABLE AirportCustomer (
+  id INT PRIMARY KEY,
+  homeaddress VARCHAR(255)
+);
+
+CREATE TABLE Luggage (
+  id INT PRIMARY KEY,
+  volume FLOAT,
+  weight FLOAT,
+  note VARCHAR(255),
+  customer_id INT,
+  FOREIGN KEY (customer_id) REFERENCES AirportCustomer(id)
+);
+
+CREATE TABLE Ticket (
+  id INT PRIMARY KEY,
+  flightid VARCHAR(50),
+  customer_id INT,
+  FOREIGN KEY (customer_id) REFERENCES AirportCustomer(id)
+);
 
 **Input diagram**
 
